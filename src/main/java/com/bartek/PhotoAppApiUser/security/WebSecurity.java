@@ -4,7 +4,6 @@ import com.bartek.PhotoAppApiUser.service.UserService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -28,32 +27,6 @@ public class WebSecurity {
         this.userService = userService;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
-
-//    @Bean
-//    protected SecurityFilterChain configure(HttpSecurity http) throws Exception {
-//        http.csrf().disable();
-//
-//        AuthenticationManagerBuilder authenticationManagerBuilder = http.getSharedObject(AuthenticationManagerBuilder.class);
-//        authenticationManagerBuilder.userDetailsService(userService).passwordEncoder(bCryptPasswordEncoder);
-//
-//        AuthenticationManager authenticationManager = authenticationManagerBuilder.build();
-//
-//
-//        http
-//                .authorizeRequests(authorize -> authorize
-//                        .antMatchers(HttpMethod.POST, "/users/**")
-//                        .hasIpAddress(environment.getProperty("gateway.ip"))
-//                )
-//                .authorizeRequests(authorize -> authorize
-//                        .antMatchers("/h2-console/**").permitAll()
-//                )
-//                .addFilter(new AuthenticationFilter(authenticationManager, userService, environment))
-//                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-//
-//
-//
-//        return http.build();
-//    }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -81,7 +54,7 @@ public class WebSecurity {
 
     private Filter getAuthFilter(AuthenticationManager authenticationManager) {
         AuthenticationFilter authenticationFilter = new AuthenticationFilter(authenticationManager, userService, environment);
-        authenticationFilter.setFilterProcessesUrl("/users/login");
+        authenticationFilter.setFilterProcessesUrl(environment.getProperty("login.url.path"));
         return authenticationFilter;
     }
 }
