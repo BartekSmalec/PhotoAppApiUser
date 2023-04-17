@@ -1,5 +1,7 @@
 package com.bartek.PhotoAppApiUser;
 
+import com.bartek.PhotoAppApiUser.shared.FeignErrorDecoder;
+import feign.Logger;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.actuate.trace.http.HttpTraceRepository;
 import org.springframework.boot.actuate.trace.http.InMemoryHttpTraceRepository;
@@ -16,24 +18,34 @@ import org.springframework.web.client.RestTemplate;
 @EnableFeignClients
 public class PhotoAppApiUserApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(PhotoAppApiUserApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(PhotoAppApiUserApplication.class, args);
+    }
 
-	@Bean
-	public BCryptPasswordEncoder bCryptPasswordEncoder(){
-		return new BCryptPasswordEncoder();
-	}
+    @Bean
+    public BCryptPasswordEncoder bCryptPasswordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 
-	@Bean
-	public HttpTraceRepository httpTraceRepository(){
-		return new InMemoryHttpTraceRepository();
-	}
+    @Bean
+    public HttpTraceRepository httpTraceRepository() {
+        return new InMemoryHttpTraceRepository();
+    }
 
-	@Bean
-	@LoadBalanced
-	public RestTemplate getRestTemplate(){
-		return new RestTemplate();
-	}
+    @Bean
+    @LoadBalanced
+    public RestTemplate getRestTemplate() {
+        return new RestTemplate();
+    }
+
+    @Bean
+    Logger.Level feignLoggerLevel() {
+        return Logger.Level.FULL;
+    }
+
+/*    @Bean
+    public FeignErrorDecoder getFeignErrorDecoder(){
+        return new FeignErrorDecoder();
+    }*/
 
 }
