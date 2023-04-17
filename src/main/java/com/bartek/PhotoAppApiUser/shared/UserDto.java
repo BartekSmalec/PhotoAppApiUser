@@ -1,6 +1,9 @@
 package com.bartek.PhotoAppApiUser.shared;
 
+import com.bartek.PhotoAppApiUser.model.AlbumResponseModel;
+
 import java.io.Serializable;
+import java.util.List;
 
 public class UserDto implements Serializable {
 
@@ -10,6 +13,8 @@ public class UserDto implements Serializable {
     private String email;
     private String password;
     private String userId;
+
+    private List<AlbumResponseModel> albums;
 
     public String getFirstName() {
         return firstName;
@@ -49,5 +54,13 @@ public class UserDto implements Serializable {
 
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    public List<AlbumResponseModel> getAlbums() {
+        return albums;
+    }
+
+    public void setAlbums(List<AlbumResponseModel> albums) {
+        this.albums = albums;
     }
 }
