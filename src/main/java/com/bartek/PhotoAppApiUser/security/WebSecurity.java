@@ -42,6 +42,7 @@ public class WebSecurity {
         http.authorizeRequests()
                 .antMatchers("/users/**").hasIpAddress(environment.getProperty("gateway.ip"))
                 .antMatchers("/h2-console/**").permitAll()
+                .antMatchers("/actuator/**").permitAll()
                 .and()
                 .authenticationManager(authenticationManager)
                 .addFilter(getAuthFilter(authenticationManager))
