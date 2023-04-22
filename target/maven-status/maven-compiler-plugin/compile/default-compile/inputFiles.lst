@@ -1,0 +1,16 @@
+/home/bartek/PhotoAppApiUser/src/main/java/com/bartek/PhotoAppApiUser/security/AuthenticationFilter.java
+/home/bartek/PhotoAppApiUser/src/main/java/com/bartek/PhotoAppApiUser/data/UserEntity.java
+/home/bartek/PhotoAppApiUser/src/main/java/com/bartek/PhotoAppApiUser/shared/FeignErrorDecoder.java
+/home/bartek/PhotoAppApiUser/src/main/java/com/bartek/PhotoAppApiUser/model/CreateUserRequestModel.java
+/home/bartek/PhotoAppApiUser/src/main/java/com/bartek/PhotoAppApiUser/model/CreateUserResponseModel.java
+/home/bartek/PhotoAppApiUser/src/main/java/com/bartek/PhotoAppApiUser/service/UserService.java
+/home/bartek/PhotoAppApiUser/src/main/java/com/bartek/PhotoAppApiUser/PhotoAppApiUserApplication.java
+/home/bartek/PhotoAppApiUser/src/main/java/com/bartek/PhotoAppApiUser/service/UserServiceImpl.java
+/home/bartek/PhotoAppApiUser/src/main/java/com/bartek/PhotoAppApiUser/model/UserResponseModel.java
+/home/bartek/PhotoAppApiUser/src/main/java/com/bartek/PhotoAppApiUser/data/AlbumsServiceClient.java
+/home/bartek/PhotoAppApiUser/src/main/java/com/bartek/PhotoAppApiUser/controllers/UserController.java
+/home/bartek/PhotoAppApiUser/src/main/java/com/bartek/PhotoAppApiUser/model/AlbumResponseModel.java
+/home/bartek/PhotoAppApiUser/src/main/java/com/bartek/PhotoAppApiUser/model/LoginRequestModel.java
+/home/bartek/PhotoAppApiUser/src/main/java/com/bartek/PhotoAppApiUser/shared/UserDto.java
+/home/bartek/PhotoAppApiUser/src/main/java/com/bartek/PhotoAppApiUser/security/WebSecurity.java
+/home/bartek/PhotoAppApiUser/src/main/java/com/bartek/PhotoAppApiUser/repositories/UserRepository.java

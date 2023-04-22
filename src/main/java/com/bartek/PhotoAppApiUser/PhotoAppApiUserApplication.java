@@ -1,7 +1,10 @@
 package com.bartek.PhotoAppApiUser;
 
 import com.bartek.PhotoAppApiUser.shared.FeignErrorDecoder;
+import feign.Capability;
 import feign.Logger;
+import feign.micrometer.MicrometerCapability;
+import io.micrometer.core.instrument.MeterRegistry;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.actuate.trace.http.HttpTraceRepository;
 import org.springframework.boot.actuate.trace.http.InMemoryHttpTraceRepository;
@@ -44,9 +47,14 @@ public class PhotoAppApiUserApplication {
         return Logger.Level.FULL;
     }
 
-/*    @Bean
-    public FeignErrorDecoder getFeignErrorDecoder(){
-        return new FeignErrorDecoder();
-    }*/
+    @Bean
+    public Capability capability(final MeterRegistry registry) {
+        return new MicrometerCapability(registry);
+    }
+
+///*    @Bean
+//    public FeignErrorDecoder getFeignErrorDecoder(){
+//        return new FeignErrorDecoder();
+//    }*/
 
 }

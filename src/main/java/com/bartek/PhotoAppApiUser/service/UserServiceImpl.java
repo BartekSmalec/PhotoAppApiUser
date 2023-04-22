@@ -7,6 +7,8 @@ import com.bartek.PhotoAppApiUser.repositories.UserRepository;
 import com.bartek.PhotoAppApiUser.shared.UserDto;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpMethod;
@@ -89,7 +91,13 @@ public class UserServiceImpl implements UserService {
 
         List<AlbumResponseModel> albumsList = albumResponse.getBody();*/
 
+        Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
+
+        logger.debug("Before calling album service");
+
         List<AlbumResponseModel> albumsList = albumsServiceClient.getAlbums(userId);
+
+        logger.debug("After calling album service");
 
         UserDto userDto = new ModelMapper().map(userEntity, UserDto.class);
 

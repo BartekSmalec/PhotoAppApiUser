@@ -1,0 +1,7 @@
+-------------------------------------------------------------------------------
+Test set: com.bartek.PhotoAppApiUser.PhotoAppApiUserApplicationTests
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 2.457 s <<< FAILURE! - in com.bartek.PhotoAppApiUser.PhotoAppApiUserApplicationTests
+contextLoads  Time elapsed: 0.008 s  <<< ERROR!
+java.lang.NoSuchMethodError: 'org.springframework.http.HttpStatusCode org.springframework.http.ResponseEntity.getStatusCode()'
+
