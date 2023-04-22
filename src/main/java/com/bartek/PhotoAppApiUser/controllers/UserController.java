@@ -1,6 +1,5 @@
 package com.bartek.PhotoAppApiUser.controllers;
 
-import com.bartek.PhotoAppApiUser.model.AlbumResponseModel;
 import com.bartek.PhotoAppApiUser.model.CreateUserRequestModel;
 import com.bartek.PhotoAppApiUser.model.CreateUserResponseModel;
 import com.bartek.PhotoAppApiUser.model.UserResponseModel;
@@ -14,8 +13,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
-import java.util.List;
 
 @RestController
 @RequestMapping("/users")
@@ -35,7 +32,7 @@ public class UserController {
     }
 
     @PostMapping(produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE} )
-    public ResponseEntity<CreateUserResponseModel> createUser(@Valid @RequestBody CreateUserRequestModel userDetails) {
+    public ResponseEntity<CreateUserResponseModel> createUser(@RequestBody CreateUserRequestModel userDetails) {
 
         ModelMapper modelMapper = new ModelMapper();
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);

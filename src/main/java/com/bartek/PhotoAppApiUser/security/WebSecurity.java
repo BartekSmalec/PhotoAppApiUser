@@ -1,61 +1,72 @@
 package com.bartek.PhotoAppApiUser.security;
 
 import com.bartek.PhotoAppApiUser.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.access.expression.WebExpressionAuthorizationManager;
 
-import javax.servlet.Filter;
+
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 
 @Configuration
 @EnableWebSecurity
 public class WebSecurity {
 
     private Environment environment;
-    private UserService userService;
+    private UserService usersService;
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public WebSecurity(Environment environment, UserService userService, BCryptPasswordEncoder bCryptPasswordEncoder) {
+    @Autowired
+    public WebSecurity(Environment environment, UserService usersService,
+                       BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.environment = environment;
-        this.userService = userService;
+        this.usersService = usersService;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.csrf().disable();
+    SecurityFilterChain configure(HttpSecurity http) throws Exception {
 
+        // Configure AuthenticationManagerBuilder
+        AuthenticationManagerBuilder authenticationManagerBuilder = http
+                .getSharedObject(AuthenticationManagerBuilder.class);
+        authenticationManagerBuilder.userDetailsService(usersService).passwordEncoder(bCryptPasswordEncoder);
 
-        AuthenticationManagerBuilder authenticationManagerBuilder = http.getSharedObject(AuthenticationManagerBuilder.class);
-        authenticationManagerBuilder.userDetailsService(userService);
+        // Get AuthenticationManager
         AuthenticationManager authenticationManager = authenticationManagerBuilder.build();
 
+        // Create AuthenticationFilter
+        AuthenticationFilter authenticationFilter =
+                new AuthenticationFilter(authenticationManager,usersService, environment);
+        authenticationFilter.setFilterProcessesUrl(environment.getProperty("login.url.path"));
+
         http.csrf().disable();
-        http.headers().frameOptions().disable();
-        http.authorizeRequests()
-                .antMatchers("/users/**").hasIpAddress(environment.getProperty("gateway.ip"))
-                .antMatchers("/h2-console/**").permitAll()
-                .antMatchers("/actuator/**").permitAll()
+
+        http.authorizeHttpRequests()
+                .requestMatchers("/**")
+                .access(new WebExpressionAuthorizationManager(
+                        "hasIpAddress('" + environment.getProperty("gateway.ip") + "')"))
+                .requestMatchers(HttpMethod.GET, "/actuator/health").permitAll()
+                .requestMatchers(HttpMethod.GET, "/actuator/circuitbreakerevents").permitAll()
                 .and()
+                .addFilter(authenticationFilter)
+                .addFilter(new AuthorizationFilter(authenticationManager, environment))
                 .authenticationManager(authenticationManager)
-                .addFilter(getAuthFilter(authenticationManager))
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+                .sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
         http.headers().frameOptions().disable();
 
         return http.build();
     }
 
-    private Filter getAuthFilter(AuthenticationManager authenticationManager) {
-        AuthenticationFilter authenticationFilter = new AuthenticationFilter(authenticationManager, userService, environment);
-        authenticationFilter.setFilterProcessesUrl(environment.getProperty("login.url.path"));
-        return authenticationFilter;
-    }
 }

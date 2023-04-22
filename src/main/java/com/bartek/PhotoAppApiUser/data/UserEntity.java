@@ -1,7 +1,9 @@
 package com.bartek.PhotoAppApiUser.data;
 
-import javax.persistence.*;
 import java.io.Serializable;
+
+import jakarta.persistence.*;
+
 
 @Entity
 @Table(name = "users")
