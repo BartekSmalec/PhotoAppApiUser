@@ -8,6 +8,7 @@ com/bartek/PhotoAppApiUser/service/UserService.class
 com/bartek/PhotoAppApiUser/data/AlbumsServiceClient.class
 com/bartek/PhotoAppApiUser/model/LoginRequestModel.class
 com/bartek/PhotoAppApiUser/shared/FeignErrorDecoder.class
+com/bartek/PhotoAppApiUser/security/AuthorizationFilter.class
 com/bartek/PhotoAppApiUser/model/UserResponseModel.class
 com/bartek/PhotoAppApiUser/service/UserServiceImpl.class
 com/bartek/PhotoAppApiUser/controllers/UserController.class

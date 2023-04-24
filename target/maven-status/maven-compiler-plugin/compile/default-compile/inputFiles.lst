@@ -1,6 +1,7 @@
 /home/bartek/PhotoAppApiUser/src/main/java/com/bartek/PhotoAppApiUser/security/AuthenticationFilter.java
 /home/bartek/PhotoAppApiUser/src/main/java/com/bartek/PhotoAppApiUser/data/UserEntity.java
 /home/bartek/PhotoAppApiUser/src/main/java/com/bartek/PhotoAppApiUser/shared/FeignErrorDecoder.java
+/home/bartek/PhotoAppApiUser/src/main/java/com/bartek/PhotoAppApiUser/security/AuthorizationFilter.java
 /home/bartek/PhotoAppApiUser/src/main/java/com/bartek/PhotoAppApiUser/model/CreateUserRequestModel.java
 /home/bartek/PhotoAppApiUser/src/main/java/com/bartek/PhotoAppApiUser/model/CreateUserResponseModel.java
 /home/bartek/PhotoAppApiUser/src/main/java/com/bartek/PhotoAppApiUser/service/UserService.java
